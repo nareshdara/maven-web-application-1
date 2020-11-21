@@ -11,17 +11,17 @@ node
  
  stage('Build')
  {
- sh  "${mavenHome}/bin/mvn clean package"
+ sh  "${mvnHome}/bin/mvn clean package"
  }
  
  stage('ExecuteSoanrQubeReport')
  {
- sh  "${mavenHome}/bin/mvn sonar:sonar"
+ sh  "${mvnHome}/bin/mvn sonar:sonar"
  }
  
  stage('UploadArtifactintoNexus')
  {
- sh  "${mavenHome}/bin/mvn deploy"
+ sh  "${mvnHome}/bin/mvn deploy"
  }
  
  stage('DeployAppintoTomcat')
