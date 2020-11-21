@@ -1,14 +1,14 @@
 node
 {
 
-  def mavenHome=tool name: "maven3.6.3"
+   def mvnHome = tool name: 'maven_3.6.3' , type: 'maven'
   
  stage('Checkout')
  {
- 	git branch: 'development', credentialsId: 'bed5a851-d84d-412e-87e7-bf9ce23c0e0e', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+ 	git credentialsId: 'test_maven_Project', url: 'https://github.com/nareshdara/maven-web-application-1.git'
  
  }
- /*
+ 
  stage('Build')
  {
  sh  "${mavenHome}/bin/mvn clean package"
@@ -26,17 +26,16 @@ node
  
  stage('DeployAppintoTomcat')
  {
- sshagent(['cd93d61f-2d0f-4c60-8b33-34cf4fa888b0']) {
-  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.235.132.183:/opt/apache-tomcat-9.0.29/webapps/"
+ sshagent(['maven_pipeline_project1']) {
+   
+  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.0.95.121:/opt/apache-tomcat-9.0.40/webapps/"
  }
  }
-*/
  stage('SendEmailNotification')
  {
- emailext body: '''Build is over..
+emailext body: '''Test webapp project
 
- Regards,
- Mithun Technologies,
- 9980923226.''', subject: 'Build is over', to: 'devopstrainingblr@gmail.com'
+regards,
+Naresh''', subject: 'Test webapp project', to: 'nareshdara200@gmail.com'
  }
 }
